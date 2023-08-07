@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="Arabia">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/css/intlTelInput.min.css">
+  <link rel="stylesheet" type="text/css" href="anas.css">
+ </head>
+<body>
+  <div class="container">
+    <img class="image" src="/photo/IMG-20230807-WA0028.jpg" alt="Landing Page Image">
+    
+    <div class="question">
+    <h3>اجب علي سؤال حلقة اليوم</h3>
+    
+    </div>
+    
+    <div class="separator"></div>
+    <div class="form-container">
+      
+
+      <form action="https://sheetdb.io/api/v1/u95uzw6lomxuz" method="post" id="myForm"  onsubmit="return validateNumberForm()"> 
+        
+        <input type="tel" name="phone" id="phone" placeholder="رقم الجوال " required>
+        <textarea name="text" rows="4" placeholder="اكتب الاجابة هنا!" required></textarea>
+
+        <input type="submit" value="ارسل الان">
+      </form>
+      <script>
+       function validateNumberForm() {
+       var phone = document.getElementById("phone").value;
+       var text = document.getElementById("text").value;
+
+       if (!phone.match(/^\d+$/)) {
+        document.getElementById("phone").classList.add("error");
+        return false;
+        }
+
+        if (text.length < 10) {
+        document.getElementById("text").classList.add("error");
+       return false;
+       }
+
+         return true;
+         }
+      </script>
+        
+    </div>
+  </div>
+  <div id="thank-you" style="display: none;">
+    <div class="container">
+      <h3>Thank You for Submitting the Form!</h3>
+      <p>We appreciate your input. Your message has been successfully submitted.</p>
+    </div>
+  </div>
+  <div class="footer">
+    <p>&copy; 2023  Swap Jo . All rights reserved.</p>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.3/js/intlTelInput.min.js"></script>
+  <script>
+    const input = document.querySelector("#phone");
+    const iti = window.intlTelInput(input, {
+      initialCountry: "sa", // Set Saudi Arabia (KSA) as the default country
+      separateDialCode: true,
+      preferredCountries: ["sa", "us", "gb", "ca", "au"] // Customize the preferred country codes if needed
+    });
+
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission to allow AJAX handling
+
+      // You can perform any additional client-side validation here if needed
+
+      // Simulate form submission using AJAX
+      var formData = new FormData(event.target);
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'https://sheetdb.io/api/v1/u95uzw6lomxuz', true);
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 201) {
+          // On successful form submission, hide the form and show the thank-you message
+          document.getElementById('myForm').style.display = 'none';
+           window.location.href = "thankyou.html";
+        }
+      };
+      xhr.send(formData);
+
+      
+    });
+  </script>
+</body>
+</html>
